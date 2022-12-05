@@ -1,84 +1,58 @@
 ﻿void First()
 {
-    Stack<char>[] stackArray = new Stack<char>[] { new Stack<char>(), new Stack<char>(), new Stack<char>(), new Stack<char>(), new Stack<char>(), new Stack<char>(), new Stack<char>(), new Stack<char>(), new Stack<char>() };
-    stackArray[0].Push('L');
-    stackArray[0].Push('N');
-    stackArray[0].Push('W');
-    stackArray[0].Push('T');
-    stackArray[0].Push('D');
+    var lines = File.ReadLines(@"input.txt");
 
-    stackArray[1].Push('C');
-    stackArray[1].Push('P');
-    stackArray[1].Push('H');
+    var stackCount = (lines.First().Length / 4) + 1;
 
-    stackArray[2].Push('W');
-    stackArray[2].Push('P');
-    stackArray[2].Push('H');
-    stackArray[2].Push('N');
-    stackArray[2].Push('D');
-    stackArray[2].Push('G');
-    stackArray[2].Push('M');
-    stackArray[2].Push('J');
+    var stackLines = new List<string>();
 
-    stackArray[3].Push('C');
-    stackArray[3].Push('W');
-    stackArray[3].Push('S');
-    stackArray[3].Push('N');
-    stackArray[3].Push('T');
-    stackArray[3].Push('Q');
-    stackArray[3].Push('L');
+    foreach (var line in lines)
+    {
+        if (string.IsNullOrEmpty(line))
+            break;
 
-    stackArray[4].Push('P');
-    stackArray[4].Push('H');
-    stackArray[4].Push('C');
-    stackArray[4].Push('N');
+        stackLines.Add(line);
+    }
 
-    stackArray[5].Push('T');
-    stackArray[5].Push('H');
-    stackArray[5].Push('N');
-    stackArray[5].Push('D');
-    stackArray[5].Push('M');
-    stackArray[5].Push('W');
-    stackArray[5].Push('Q');
-    stackArray[5].Push('B');
+    stackLines.Reverse();
 
-    stackArray[6].Push('M');
-    stackArray[6].Push('B');
-    stackArray[6].Push('R');
-    stackArray[6].Push('J');
-    stackArray[6].Push('G');
-    stackArray[6].Push('S');
-    stackArray[6].Push('L');
+    var stackArrayA = new List<Stack<char>>();
 
-    stackArray[7].Push('Z');
-    stackArray[7].Push('N');
-    stackArray[7].Push('W');
-    stackArray[7].Push('G');
-    stackArray[7].Push('V');
-    stackArray[7].Push('B');
-    stackArray[7].Push('R');
-    stackArray[7].Push('T');
+    for (int i = 0; i < stackCount; i++)
+    {
+        stackArrayA.Add(new Stack<char>());
+    }
 
-    stackArray[8].Push('W');
-    stackArray[8].Push('G');
-    stackArray[8].Push('D');
-    stackArray[8].Push('N');
-    stackArray[8].Push('P');
-    stackArray[8].Push('L');
+    var stackArray = stackArrayA.ToArray();
+
+    foreach (var line in stackLines.Skip(1))
+    {
+        for (int i = 0; i < stackCount; i++)
+        {
+            var a = line.Substring(i * 3 + i, 3);
+            if (a[1] != ' ')
+                stackArray[i].Push(a[1]);
+        }
+    }
 
     var start = false;
-
     foreach (var line in File.ReadLines(@"input.txt"))
     {
-        var step = line.Split(" ");
-        var from = int.Parse(step[3]) - 1;
-        var to = int.Parse(step[5]) - 1;
-
-
-        for (int i = 0; i < int.Parse(step[1]); i++)
+        if (start)
         {
-            stackArray[to].Push(stackArray[from].Pop());
+            var step = line.Split(" ");
+            var from = int.Parse(step[3]) - 1;
+            var to = int.Parse(step[5]) - 1;
+
+
+            for (int i = 0; i < int.Parse(step[1]); i++)
+            {
+                stackArray[to].Push(stackArray[from].Pop());
+            }
         }
+
+        if (string.IsNullOrEmpty(line))
+            start = true;
     }
 
     var r = "";
@@ -92,91 +66,66 @@
 
 void Second()
 {
-    Stack<char>[] stackArray = new Stack<char>[] { new Stack<char>(), new Stack<char>(), new Stack<char>(), new Stack<char>(), new Stack<char>(), new Stack<char>(), new Stack<char>(), new Stack<char>(), new Stack<char>() };
-    stackArray[0].Push('L');
-    stackArray[0].Push('N');
-    stackArray[0].Push('W');
-    stackArray[0].Push('T');
-    stackArray[0].Push('D');
+    var lines = File.ReadLines(@"input.txt");
 
-    stackArray[1].Push('C');
-    stackArray[1].Push('P');
-    stackArray[1].Push('H');
+    var stackCount = (lines.First().Length / 4) + 1;
 
-    stackArray[2].Push('W');
-    stackArray[2].Push('P');
-    stackArray[2].Push('H');
-    stackArray[2].Push('N');
-    stackArray[2].Push('D');
-    stackArray[2].Push('G');
-    stackArray[2].Push('M');
-    stackArray[2].Push('J');
+    var stackLines = new List<string>();
 
-    stackArray[3].Push('C');
-    stackArray[3].Push('W');
-    stackArray[3].Push('S');
-    stackArray[3].Push('N');
-    stackArray[3].Push('T');
-    stackArray[3].Push('Q');
-    stackArray[3].Push('L');
+    foreach (var line in lines)
+    {
+        if (string.IsNullOrEmpty(line))
+            break;
 
-    stackArray[4].Push('P');
-    stackArray[4].Push('H');
-    stackArray[4].Push('C');
-    stackArray[4].Push('N');
+        stackLines.Add(line);
+    }
 
-    stackArray[5].Push('T');
-    stackArray[5].Push('H');
-    stackArray[5].Push('N');
-    stackArray[5].Push('D');
-    stackArray[5].Push('M');
-    stackArray[5].Push('W');
-    stackArray[5].Push('Q');
-    stackArray[5].Push('B');
+    stackLines.Reverse();
 
-    stackArray[6].Push('M');
-    stackArray[6].Push('B');
-    stackArray[6].Push('R');
-    stackArray[6].Push('J');
-    stackArray[6].Push('G');
-    stackArray[6].Push('S');
-    stackArray[6].Push('L');
+    var stackArrayA = new List<Stack<char>>();
 
-    stackArray[7].Push('Z');
-    stackArray[7].Push('N');
-    stackArray[7].Push('W');
-    stackArray[7].Push('G');
-    stackArray[7].Push('V');
-    stackArray[7].Push('B');
-    stackArray[7].Push('R');
-    stackArray[7].Push('T');
+    for (int i = 0; i < stackCount; i++)
+    {
+        stackArrayA.Add(new Stack<char>());
+    }
 
-    stackArray[8].Push('W');
-    stackArray[8].Push('G');
-    stackArray[8].Push('D');
-    stackArray[8].Push('N');
-    stackArray[8].Push('P');
-    stackArray[8].Push('L');
+    var stackArray = stackArrayA.ToArray();
+
+    foreach (var line in stackLines.Skip(1))
+    {
+        for (int i = 0; i < stackCount; i++)
+        {
+            var a = line.Substring(i * 3 + i, 3);
+            if (a[1] != ' ')
+                stackArray[i].Push(a[1]);
+        }
+    }
 
     var craneStack = new Stack<char>();
+    var start = false;
 
     foreach (var line in File.ReadLines(@"input.txt"))
     {
-        var step = line.Split(" ");
-        var from = int.Parse(step[3]) - 1;
-        var to = int.Parse(step[5]) - 1;
-
-
-        craneStack.Clear();
-        for (int i = 0; i < int.Parse(step[1]); i++)
+        if (start)
         {
-            craneStack.Push(stackArray[from].Pop());
+            var step = line.Split(" ");
+            var from = int.Parse(step[3]) - 1;
+            var to = int.Parse(step[5]) - 1;
+
+            craneStack.Clear();
+            for (int i = 0; i < int.Parse(step[1]); i++)
+            {
+                craneStack.Push(stackArray[from].Pop());
+            }
+
+            for (int i = 0; i < int.Parse(step[1]); i++)
+            {
+                stackArray[to].Push(craneStack.Pop());
+            }
         }
 
-        for (int i = 0; i < int.Parse(step[1]); i++)
-        {
-            stackArray[to].Push(craneStack.Pop());
-        }
+        if (string.IsNullOrEmpty(line))
+            start = true;
     }
 
     var r = "";
